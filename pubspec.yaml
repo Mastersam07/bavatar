@@ -20,6 +20,7 @@ dependencies:
   bavatar_repository:
    path: packages/bavatar_repository
   intl: ^0.17.0
+  bot_toast: ^4.0.1
   cached_network_image: ^3.1.0-alpha.1
   flutter_svg: ^0.22.0
 

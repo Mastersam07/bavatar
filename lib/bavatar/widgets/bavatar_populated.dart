@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:bavatar/bavatar/models/models.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BavatarPopulated extends StatelessWidget {
   const BavatarPopulated({
@@ -31,9 +33,7 @@ class BavatarPopulated extends StatelessWidget {
         bottom: 10,
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: countRow,
-        mainAxisSpacing: 5
-      ),
+          crossAxisCount: countRow, mainAxisSpacing: 5),
       itemCount: bavatars.length,
       itemBuilder: (BuildContext context, int i) {
         final item = bavatars[i];
@@ -55,19 +55,32 @@ class _BavatarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-          child: Container(
-            color: Colors.pink.withOpacity(0.09),
-            child: CachedNetworkImage(
-              imageUrl: bavatar.url,
-              progressIndicatorBuilder: (context, url, _) =>
-                  const CupertinoActivityIndicator(),
-              errorWidget: (context, url, error) => const Icon(
-                CupertinoIcons.exclamationmark_triangle_fill,
-                color: Colors.white38,
+      child: CupertinoContextMenu(
+        actions: [
+          CupertinoContextMenuAction(
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: bavatar.url)).then((_) {
+                BotToast.showText(text: 'URL copied to clipboard');
+              });
+              Navigator.pop(context);
+            },
+            child: const Text('Copy URL'),
+          ),
+        ],
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            child: Container(
+              color: Colors.pink.withOpacity(0.09),
+              child: CachedNetworkImage(
+                imageUrl: bavatar.url,
+                progressIndicatorBuilder: (context, url, _) =>
+                    const CupertinoActivityIndicator(),
+                errorWidget: (context, url, error) => const Icon(
+                  CupertinoIcons.exclamationmark_triangle_fill,
+                  color: Colors.white38,
+                ),
               ),
             ),
           ),
