@@ -1,0 +1,7 @@
+{
+    "@@locale": "es",
+    "bavatarAppBarTitle": "Contador",
+    "@bavatarAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    }
+}

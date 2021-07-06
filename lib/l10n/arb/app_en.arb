@@ -1,0 +1,7 @@
+{
+    "@@locale": "en",
+    "bavatarAppBarTitle": "Bavatar",
+    "@bavatarAppBarTitle": {
+        "description": "Text shown in the AppBar of the Bavatar Page"
+    }
+}
